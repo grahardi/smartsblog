@@ -14,15 +14,31 @@
         </ol>
     </nav>
 
-    <h2 class="mb-1">{{ $category->name }}</h2>
+    <div class="d-flex align-items-center gap-3 mb-2">
+        @if($category->icon)
+            <div class="icon-wrap" style="width:56px;height:56px;border-radius:.9rem;font-size:1.5rem;">
+                <i class="bi {{ $category->icon }}"></i>
+            </div>
+        @endif
+        <div>
+            <h2 class="mb-0">{{ $category->name }}</h2>
+            <span class="text-muted small">{{ $articles->total() }} artikel</span>
+        </div>
+    </div>
     @if($category->description)
-        <p class="text-muted">{{ $category->description }}</p>
+        <p class="text-muted mb-4">{{ $category->description }}</p>
     @endif
 
     @if($category->activeChildren->count())
-        <div class="mb-4">
+        <div class="mb-4 d-flex flex-wrap gap-2">
+            <a href="{{ route('category.show', $category->slug) }}" class="category-chip active">
+                <i class="bi bi-grid-fill"></i> Semua
+            </a>
             @foreach($category->activeChildren as $sub)
-                <a href="{{ route('category.show', $sub->slug) }}" class="btn btn-sm btn-outline-secondary me-2 mb-2">{{ $sub->name }}</a>
+                <a href="{{ route('category.show', $sub->slug) }}" class="category-chip">
+                    @if($sub->icon)<i class="bi {{ $sub->icon }}"></i>@endif
+                    {{ $sub->name }}
+                </a>
             @endforeach
         </div>
     @endif

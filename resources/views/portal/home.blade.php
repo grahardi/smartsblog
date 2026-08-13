@@ -85,16 +85,24 @@
         </div>
 
         <div class="col-lg-4">
-            <div class="card shadow-sm">
+            <div class="card shadow-sm border-0">
                 <div class="card-body">
-                    <h6 class="card-title">Kategori</h6>
-                    <ul class="list-group list-group-flush">
+                    <h6 class="card-title fw-bold mb-3">Jelajahi Kategori</h6>
+                    <div class="d-flex flex-column gap-1">
                         @foreach($categories as $cat)
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <a href="{{ route('category.show', $cat->slug) }}" class="text-decoration-none">{{ $cat->name }}</a>
-                            </li>
+                            <a href="{{ route('category.show', $cat->slug) }}" class="category-tile">
+                                <div class="icon-wrap">
+                                    <i class="bi {{ $cat->icon ?? 'bi-folder2' }}"></i>
+                                </div>
+                                <div>
+                                    <div class="tile-name">{{ $cat->name }}</div>
+                                    @if($cat->activeChildren->count())
+                                        <div class="tile-count">{{ $cat->activeChildren->pluck('name')->implode(', ') }}</div>
+                                    @endif
+                                </div>
+                            </a>
                         @endforeach
-                    </ul>
+                    </div>
                 </div>
             </div>
         </div>

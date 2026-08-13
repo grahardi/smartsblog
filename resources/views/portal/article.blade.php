@@ -27,8 +27,8 @@
                 &middot; {{ $article->views }} views
             </p>
 
-            @if($article->featured_image)
-                <img src="{{ $article->featured_image }}" class="img-fluid rounded mb-4" alt="{{ $article->title }}">
+            @if($article->image_url)
+                <img src="{{ $article->image_url }}" class="img-fluid rounded mb-4" alt="{{ $article->title }}">
             @endif
 
             <div class="article-content fs-5" style="line-height:1.8;">

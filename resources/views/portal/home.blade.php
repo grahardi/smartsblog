@@ -36,7 +36,7 @@
                 @foreach($featured as $i => $article)
                     <div class="carousel-item @if($i === 0) active @endif">
                         <a href="{{ route('article.show', $article->slug) }}" class="text-decoration-none">
-                            <img src="{{ $article->featured_image ?? 'https://placehold.co/1200x420?text='.urlencode($article->title) }}"
+                            <img src="{{ $article->image_url ?? 'https://placehold.co/1200x420?text='.urlencode($article->title) }}"
                                  class="d-block w-100" style="height:420px;object-fit:cover;" alt="{{ $article->title }}">
                             <div class="carousel-caption bg-dark bg-opacity-50 rounded p-3">
                                 <span class="badge bg-info mb-2">{{ $article->categories->first()?->name }}</span>
@@ -64,7 +64,7 @@
                 @forelse($latest as $article)
                     <div class="col">
                         <div class="card h-100 shadow-sm article-card">
-                            <img src="{{ $article->featured_image ?? 'https://placehold.co/400x220?text='.urlencode($article->title) }}" class="card-img-top" alt="{{ $article->title }}">
+                            <img src="{{ $article->image_url ?? 'https://placehold.co/400x220?text='.urlencode($article->title) }}" class="card-img-top" alt="{{ $article->title }}">
                             <div class="card-body">
                                 <span class="badge bg-secondary mb-2">{{ $article->categories->first()?->name }}</span>
                                 <h5 class="card-title">

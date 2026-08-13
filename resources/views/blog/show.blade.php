@@ -20,7 +20,7 @@
         @forelse($posts as $post)
             <div class="col">
                 <div class="card h-100 shadow-sm post-card">
-                    <img src="{{ $post->featured_image ?? 'https://placehold.co/400x220?text='.urlencode($post->title) }}" class="card-img-top" alt="{{ $post->title }}">
+                    <img src="{{ $post->image_url ?? 'https://placehold.co/400x220?text='.urlencode($post->title) }}" class="card-img-top" alt="{{ $post->title }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $post->title }}</h5>
                         <p class="card-text text-muted small">{{ \Illuminate\Support\Str::limit($post->excerpt ?? strip_tags($post->content), 100) }}</p>

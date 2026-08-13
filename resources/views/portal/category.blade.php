@@ -47,7 +47,7 @@
         @forelse($articles as $article)
             <div class="col">
                 <div class="card h-100 shadow-sm article-card">
-                    <img src="{{ $article->featured_image ?? 'https://placehold.co/400x220?text='.urlencode($article->title) }}" class="card-img-top" alt="{{ $article->title }}">
+                    <img src="{{ $article->image_url ?? 'https://placehold.co/400x220?text='.urlencode($article->title) }}" class="card-img-top" alt="{{ $article->title }}">
                     <div class="card-body">
                         <h5 class="card-title">
                             <a href="{{ route('article.show', $article->slug) }}" class="text-decoration-none text-dark">{{ $article->title }}</a>

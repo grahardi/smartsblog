@@ -71,4 +71,24 @@ class Article extends Model
     {
         $this->increment('views');
     }
+
+    /**
+     * URL gambar yang selalu absolut, aman dipakai langsung di <img src>.
+     * - null tetap null (biar view yang menentukan placeholder)
+     * - URL eksternal (http/https) dikembalikan apa adanya
+     * - path lokal (mis. "storage/articles/xxx.jpg") dibungkus asset()
+     *   supaya jadi absolut, bukan relatif terhadap URL halaman saat ini.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (empty($this->featured_image)) {
+            return null;
+        }
+
+        if (Str::startsWith($this->featured_image, ['http://', 'https://'])) {
+            return $this->featured_image;
+        }
+
+        return asset(ltrim($this->featured_image, '/'));
+    }
 }

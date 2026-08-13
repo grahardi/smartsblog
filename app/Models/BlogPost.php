@@ -56,4 +56,17 @@ class BlogPost extends Model
     {
         $this->increment('views');
     }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (empty($this->featured_image)) {
+            return null;
+        }
+
+        if (Str::startsWith($this->featured_image, ['http://', 'https://'])) {
+            return $this->featured_image;
+        }
+
+        return asset(ltrim($this->featured_image, '/'));
+    }
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Smarts.id — Portal Artikel & Blog')</title>
     <meta name="description" content="@yield('meta_description', 'Portal artikel kecerdasan, pendidikan, dan pengetahuan.')">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -13,6 +14,28 @@
         .article-card img, .post-card img { height:180px; object-fit:cover; }
         footer { background:#1c1f26; color:#adb5bd; }
         footer a { color:#e9ecef; text-decoration:none; }
+
+        /* --- Hero theme slider (ilustrasi CSS, tanpa gambar eksternal) --- */
+        .hero-slider .carousel-item { height:380px; position:relative; overflow:hidden; }
+        .hero-slide { height:100%; display:flex; align-items:center; color:#fff; position:relative; }
+        .hero-slide::before {
+            content:""; position:absolute; inset:0; opacity:.15;
+            background-image: radial-gradient(circle at 15% 25%, #fff 2px, transparent 2px),
+                               radial-gradient(circle at 85% 15%, #fff 1.5px, transparent 1.5px),
+                               radial-gradient(circle at 70% 80%, #fff 2px, transparent 2px),
+                               radial-gradient(circle at 30% 85%, #fff 1.5px, transparent 1.5px);
+            background-size: 220px 220px;
+        }
+        .hero-slide .hero-icon {
+            font-size: 9rem; opacity:.22; position:absolute; right:6%; top:50%; transform:translateY(-50%);
+        }
+        .hero-slide-ai { background: linear-gradient(120deg, #4b1fb0, #1e63e0); }
+        .hero-slide-math { background: linear-gradient(120deg, #0f9b8e, #0dcaf0); }
+        .hero-slide-physics { background: linear-gradient(120deg, #d9480f, #f59f00); }
+        .hero-slide-edu { background: linear-gradient(120deg, #2b8a3e, #37b24d); }
+        .hero-slide-science { background: linear-gradient(120deg, #1c1f26, #364fc7); }
+        .hero-slide .hero-caption { position:relative; z-index:2; max-width:560px; }
+        .hero-slide .hero-caption .badge { background:rgba(255,255,255,.18); }
     </style>
     @stack('styles')
 </head>
@@ -20,7 +43,10 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">Smarts<span class="text-info">.id</span></a>
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
+            <i class="bi bi-mortarboard-fill text-info fs-4"></i>
+            Smarts<span class="text-info">.id</span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain">
             <span class="navbar-toggler-icon"></span>
         </button>

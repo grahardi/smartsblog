@@ -4,6 +4,75 @@
 
 @section('content')
 
+    {{-- Slider tema: kecerdasan, matematika, fisika, edukasi, pengetahuan --}}
+    <div id="themeSlider" class="carousel slide hero-slider mb-4 rounded overflow-hidden shadow-sm" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="hero-slide hero-slide-ai px-5">
+                    <i class="bi bi-cpu hero-icon"></i>
+                    <div class="hero-caption">
+                        <span class="badge rounded-pill mb-2 px-3 py-2">Kecerdasan Buatan</span>
+                        <h2 class="fw-bold">Memahami Kecerdasan, Alami maupun Buatan</h2>
+                        <p class="mb-0">Artikel seputar AI, machine learning, dan cara kerja kecerdasan modern.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-slide hero-slide-math px-5">
+                    <i class="bi bi-calculator hero-icon"></i>
+                    <div class="hero-caption">
+                        <span class="badge rounded-pill mb-2 px-3 py-2">Matematika</span>
+                        <h2 class="fw-bold">Logika di Balik Angka</h2>
+                        <p class="mb-0">Konsep matematika dijelaskan dengan cara yang mudah dipahami.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-slide hero-slide-physics px-5">
+                    <i class="bi bi-atom hero-icon"></i>
+                    <div class="hero-caption">
+                        <span class="badge rounded-pill mb-2 px-3 py-2">Fisika</span>
+                        <h2 class="fw-bold">Menjelajahi Hukum Alam Semesta</h2>
+                        <p class="mb-0">Dari mekanika klasik sampai fisika kuantum, dikupas tuntas.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-slide hero-slide-edu px-5">
+                    <i class="bi bi-mortarboard hero-icon"></i>
+                    <div class="hero-caption">
+                        <span class="badge rounded-pill mb-2 px-3 py-2">Pendidikan</span>
+                        <h2 class="fw-bold">Belajar Tanpa Batas</h2>
+                        <p class="mb-0">Tips belajar, metode pengajaran, dan dunia pendidikan terkini.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <div class="hero-slide hero-slide-science px-5">
+                    <i class="bi bi-lightbulb hero-icon"></i>
+                    <div class="hero-caption">
+                        <span class="badge rounded-pill mb-2 px-3 py-2">Pengetahuan Umum</span>
+                        <h2 class="fw-bold">Rasa Ingin Tahu yang Tak Pernah Padam</h2>
+                        <p class="mb-0">Fakta menarik dan wawasan baru dari berbagai bidang ilmu.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#themeSlider" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#themeSlider" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#themeSlider" data-bs-slide-to="0" class="active"></button>
+            <button type="button" data-bs-target="#themeSlider" data-bs-slide-to="1"></button>
+            <button type="button" data-bs-target="#themeSlider" data-bs-slide-to="2"></button>
+            <button type="button" data-bs-target="#themeSlider" data-bs-slide-to="3"></button>
+            <button type="button" data-bs-target="#themeSlider" data-bs-slide-to="4"></button>
+        </div>
+    </div>
+
     @if($featured->count())
         <div id="heroCarousel" class="carousel slide mb-5 rounded overflow-hidden shadow-sm" data-bs-ride="carousel">
             <div class="carousel-inner">

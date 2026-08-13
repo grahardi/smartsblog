@@ -14,7 +14,7 @@ class ArticleController extends Controller
 {
     public function index(Request $request): View
     {
-        $articles = Article::with(['category', 'author'])
+        $articles = Article::with(['categories', 'author'])
             ->when($request->search, fn ($q) => $q->where('title', 'like', "%{$request->search}%"))
             ->when($request->status, fn ($q) => $q->where('status', $request->status))
             ->latest()
@@ -34,12 +34,15 @@ class ArticleController extends Controller
     {
         $data = $this->validated($request);
         $data['user_id'] = Auth::id();
+        $categoryIds = $data['categories'];
+        unset($data['categories']);
 
         if ($data['status'] === 'published' && empty($data['published_at'])) {
             $data['published_at'] = now();
         }
 
         $article = Article::create($data);
+        $article->categories()->sync($categoryIds);
 
         if ($request->filled('tags')) {
             $article->tags()->sync($request->input('tags'));
@@ -52,6 +55,7 @@ class ArticleController extends Controller
 
     public function edit(Article $article): View
     {
+        $article->load('categories');
         $categories = Category::with('children')->parents()->active()->get();
 
         return view('admin.articles.edit', compact('article', 'categories'));
@@ -60,12 +64,15 @@ class ArticleController extends Controller
     public function update(Request $request, Article $article): RedirectResponse
     {
         $data = $this->validated($request, $article->id);
+        $categoryIds = $data['categories'];
+        unset($data['categories']);
 
         if ($data['status'] === 'published' && empty($article->published_at)) {
             $data['published_at'] = now();
         }
 
         $article->update($data);
+        $article->categories()->sync($categoryIds);
 
         if ($request->has('tags')) {
             $article->tags()->sync($request->input('tags', []));
@@ -88,7 +95,8 @@ class ArticleController extends Controller
     private function validated(Request $request, ?int $ignoreId = null): array
     {
         return $request->validate([
-            'category_id' => ['required', 'exists:categories,id'],
+            'categories' => ['required', 'array', 'min:1'],
+            'categories.*' => ['exists:categories,id'],
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['nullable', 'string', 'max:255', 'unique:articles,slug'.($ignoreId ? ",{$ignoreId}" : '')],
             'excerpt' => ['nullable', 'string', 'max:500'],

@@ -10,10 +10,10 @@ class PortalController extends Controller
 {
     public function home(): View
     {
-        $featured = Article::with(['category', 'author'])
+        $featured = Article::with(['categories', 'author'])
             ->published()->featured()->latest('published_at')->limit(5)->get();
 
-        $latest = Article::with(['category', 'author'])
+        $latest = Article::with(['categories', 'author'])
             ->published()->latest('published_at')->paginate(12);
 
         $categories = Category::with('activeChildren')->parents()->active()->orderBy('order')->get();
@@ -21,7 +21,8 @@ class PortalController extends Controller
         return view('portal.home', compact('featured', 'latest', 'categories'));
     }
 
-    // menampilkan artikel dalam satu kategori, termasuk artikel dari subkategorinya
+    // menampilkan artikel dalam satu kategori (termasuk artikel yang salah satu kategorinya cocok),
+    // plus artikel dari subkategorinya kalau ini kategori utama
     public function category(string $slug): View
     {
         $category = Category::where('slug', $slug)->active()->firstOrFail();
@@ -30,9 +31,9 @@ class PortalController extends Controller
             ? [$category->id]
             : $category->children()->pluck('id')->push($category->id);
 
-        $articles = Article::with(['category', 'author'])
+        $articles = Article::with(['categories', 'author'])
             ->published()
-            ->whereIn('category_id', $categoryIds)
+            ->whereHas('categories', fn ($q) => $q->whereIn('categories.id', $categoryIds))
             ->latest('published_at')
             ->paginate(12);
 
@@ -41,15 +42,17 @@ class PortalController extends Controller
 
     public function article(string $slug): View
     {
-        $article = Article::with(['category', 'author', 'tags'])
+        $article = Article::with(['categories', 'author', 'tags'])
             ->where('slug', $slug)
             ->published()
             ->firstOrFail();
 
         $article->incrementViews();
 
+        $categoryIds = $article->categories->pluck('id');
+
         $related = Article::published()
-            ->where('category_id', $article->category_id)
+            ->whereHas('categories', fn ($q) => $q->whereIn('categories.id', $categoryIds))
             ->where('id', '!=', $article->id)
             ->latest('published_at')
             ->limit(4)

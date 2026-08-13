@@ -31,7 +31,11 @@
                 @forelse($articles as $article)
                     <tr>
                         <td>{{ $article->title }}</td>
-                        <td>{{ $article->category->name }}</td>
+                        <td>
+                            @foreach($article->categories as $cat)
+                                <span class="badge bg-light text-dark border">{{ $cat->name }}</span>
+                            @endforeach
+                        </td>
                         <td>{{ $article->author->name }}</td>
                         <td>
                             <span class="badge bg-{{ $article->status === 'published' ? 'success' : 'secondary' }}">

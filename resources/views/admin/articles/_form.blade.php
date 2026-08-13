@@ -7,13 +7,13 @@
 </div>
 
 <div class="mb-3">
-    <label class="form-label">Kategori</label>
-    <select name="category_id" class="form-select" required>
-        <option value="">— Pilih kategori —</option>
+    <label class="form-label">Kategori (bisa pilih lebih dari satu — tahan Ctrl/Cmd untuk multi-pilih)</label>
+    <select name="categories[]" class="form-select" multiple size="8" required>
+        @php($selectedCats = old('categories', isset($article) ? $article->categories->pluck('id')->all() : []))
         @foreach($categories as $cat)
-            <option value="{{ $cat->id }}" @selected(old('category_id', $article->category_id ?? '') == $cat->id)>{{ $cat->name }}</option>
+            <option value="{{ $cat->id }}" @selected(in_array($cat->id, $selectedCats))>{{ $cat->name }}</option>
             @foreach($cat->children as $sub)
-                <option value="{{ $sub->id }}" @selected(old('category_id', $article->category_id ?? '') == $sub->id)>— {{ $sub->name }}</option>
+                <option value="{{ $sub->id }}" @selected(in_array($sub->id, $selectedCats))>— {{ $sub->name }}</option>
             @endforeach
         @endforeach
     </select>

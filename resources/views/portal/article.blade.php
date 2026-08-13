@@ -9,10 +9,17 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Beranda</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('category.show', $article->category->slug) }}">{{ $article->category->name }}</a></li>
                     <li class="breadcrumb-item active">{{ \Illuminate\Support\Str::limit($article->title, 40) }}</li>
                 </ol>
             </nav>
+
+            @if($article->categories->count())
+                <div class="mb-2">
+                    @foreach($article->categories as $cat)
+                        <a href="{{ route('category.show', $cat->slug) }}" class="badge bg-secondary text-decoration-none me-1">{{ $cat->name }}</a>
+                    @endforeach
+                </div>
+            @endif
 
             <h1 class="mb-2">{{ $article->title }}</h1>
             <p class="text-muted">

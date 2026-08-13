@@ -14,7 +14,7 @@ class Article extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'category_id', 'user_id', 'title', 'slug', 'excerpt', 'content',
+        'user_id', 'title', 'slug', 'excerpt', 'content',
         'featured_image', 'status', 'published_at', 'is_featured',
         'meta_title', 'meta_description',
     ];
@@ -33,9 +33,9 @@ class Article extends Model
         });
     }
 
-    public function category(): BelongsTo
+    public function categories(): BelongsToMany
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsToMany(Category::class);
     }
 
     public function author(): BelongsTo
@@ -46,6 +46,14 @@ class Article extends Model
     public function tags(): BelongsToMany
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    // helper: kategori utama untuk breadcrumb/badge tunggal (kategori pertama yang tersimpan)
+    public function primaryCategory(): ?Category
+    {
+        return $this->relationLoaded('categories')
+            ? $this->categories->first()
+            : $this->categories()->first();
     }
 
     public function scopePublished($query)

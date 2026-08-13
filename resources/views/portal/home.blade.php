@@ -39,7 +39,7 @@
                             <img src="{{ $article->featured_image ?? 'https://placehold.co/1200x420?text='.urlencode($article->title) }}"
                                  class="d-block w-100" style="height:420px;object-fit:cover;" alt="{{ $article->title }}">
                             <div class="carousel-caption bg-dark bg-opacity-50 rounded p-3">
-                                <span class="badge bg-info mb-2">{{ $article->category->name }}</span>
+                                <span class="badge bg-info mb-2">{{ $article->categories->first()?->name }}</span>
                                 <h3>{{ $article->title }}</h3>
                             </div>
                         </a>
@@ -66,7 +66,7 @@
                         <div class="card h-100 shadow-sm article-card">
                             <img src="{{ $article->featured_image ?? 'https://placehold.co/400x220?text='.urlencode($article->title) }}" class="card-img-top" alt="{{ $article->title }}">
                             <div class="card-body">
-                                <span class="badge bg-secondary mb-2">{{ $article->category->name }}</span>
+                                <span class="badge bg-secondary mb-2">{{ $article->categories->first()?->name }}</span>
                                 <h5 class="card-title">
                                     <a href="{{ route('article.show', $article->slug) }}" class="text-decoration-none text-dark">{{ $article->title }}</a>
                                 </h5>

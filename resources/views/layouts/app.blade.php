@@ -16,9 +16,9 @@
         footer a { color:#e9ecef; text-decoration:none; }
 
         /* --- Hero image slider --- */
-        .hero-slider .hero-img { width:100%; height:auto; max-height:480px; object-fit:cover; }
+        .hero-slider .hero-img { width:100%; height:auto; max-height:360px; object-fit:cover; }
         @media (max-width:768px) {
-            .hero-slider .hero-img { max-height:220px; object-fit:cover; object-position:left; }
+            .hero-slider .hero-img { max-height:165px; object-fit:cover; object-position:left; }
         }
     </style>
     @stack('styles')

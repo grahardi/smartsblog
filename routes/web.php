@@ -53,3 +53,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/approvals/{user}/approve', [UserApprovalController::class, 'approve'])->name('approvals.approve');
     Route::post('/approvals/{user}/reject', [UserApprovalController::class, 'reject'])->name('approvals.reject');
 });
+
+/*
+|--------------------------------------------------------------------------
+| Route auth bawaan Breeze (login, register, logout, dsb)
+|--------------------------------------------------------------------------
+| WAJIB ada baris ini kalau Anda pakai Laravel Breeze, karena file ini
+| menimpa web.php bawaan Breeze yang biasanya sudah include baris ini.
+| Kalau file routes/auth.php tidak ada di project Anda, hapus baris ini
+| dan sesuaikan dengan sistem auth yang dipakai.
+*/
+require __DIR__.'/auth.php';

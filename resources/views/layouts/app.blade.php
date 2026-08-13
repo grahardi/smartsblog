@@ -15,27 +15,11 @@
         footer { background:#1c1f26; color:#adb5bd; }
         footer a { color:#e9ecef; text-decoration:none; }
 
-        /* --- Hero theme slider (ilustrasi CSS, tanpa gambar eksternal) --- */
-        .hero-slider .carousel-item { height:380px; position:relative; overflow:hidden; }
-        .hero-slide { height:100%; display:flex; align-items:center; color:#fff; position:relative; }
-        .hero-slide::before {
-            content:""; position:absolute; inset:0; opacity:.15;
-            background-image: radial-gradient(circle at 15% 25%, #fff 2px, transparent 2px),
-                               radial-gradient(circle at 85% 15%, #fff 1.5px, transparent 1.5px),
-                               radial-gradient(circle at 70% 80%, #fff 2px, transparent 2px),
-                               radial-gradient(circle at 30% 85%, #fff 1.5px, transparent 1.5px);
-            background-size: 220px 220px;
+        /* --- Hero image slider --- */
+        .hero-slider .hero-img { width:100%; height:auto; max-height:480px; object-fit:cover; }
+        @media (max-width:768px) {
+            .hero-slider .hero-img { max-height:220px; object-fit:cover; object-position:left; }
         }
-        .hero-slide .hero-icon {
-            font-size: 9rem; opacity:.22; position:absolute; right:6%; top:50%; transform:translateY(-50%);
-        }
-        .hero-slide-ai { background: linear-gradient(120deg, #4b1fb0, #1e63e0); }
-        .hero-slide-math { background: linear-gradient(120deg, #0f9b8e, #0dcaf0); }
-        .hero-slide-physics { background: linear-gradient(120deg, #d9480f, #f59f00); }
-        .hero-slide-edu { background: linear-gradient(120deg, #2b8a3e, #37b24d); }
-        .hero-slide-science { background: linear-gradient(120deg, #1c1f26, #364fc7); }
-        .hero-slide .hero-caption { position:relative; z-index:2; max-width:560px; }
-        .hero-slide .hero-caption .badge { background:rgba(255,255,255,.18); }
     </style>
     @stack('styles')
 </head>

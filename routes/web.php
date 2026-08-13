@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ArticleController as AdminArticleController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserApprovalController;
 use App\Http\Controllers\BlogController;
@@ -56,11 +57,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
 /*
 |--------------------------------------------------------------------------
-| Route auth bawaan Breeze (login, register, logout, dsb)
+| Auth minimal (login, register, logout) — tanpa dependency Breeze
 |--------------------------------------------------------------------------
-| WAJIB ada baris ini kalau Anda pakai Laravel Breeze, karena file ini
-| menimpa web.php bawaan Breeze yang biasanya sudah include baris ini.
-| Kalau file routes/auth.php tidak ada di project Anda, hapus baris ini
-| dan sesuaikan dengan sistem auth yang dipakai.
 */
-require __DIR__.'/auth.php';
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});

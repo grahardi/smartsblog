@@ -74,7 +74,10 @@ class ArticleSeeder extends Seeder
             return $existing;
         }
 
-        $image = WikimediaImage::fetchThumbnail($item['wiki_title'] ?? $item['title']);
+        $image = WikimediaImage::fetchAndStoreLocal(
+            $item['wiki_title'] ?? $item['title'],
+            $item['title']
+        );
 
         $article = Article::create([
             'user_id' => $this->author->id,
